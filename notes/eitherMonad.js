@@ -4,7 +4,8 @@ const Right = x =>
     ({
         map: f => Right(f(x)), // apply the function
         fold: (f, g) => g(x),
-        inspect: () => `Right(${x})`
+        inspect: () => `Right(${x})`,
+        chain: f => f(x)
     })
 
 const Left = x =>
@@ -48,3 +49,19 @@ const res = color => findColorRefactored(color)
     )
 
 console.log('res ------------- ', res('aaaa'))
+
+/* From nullable*/
+
+const fromNullable = x => x !== null
+    ? Right(x) : Left();
+
+
+const findColorFromNullable = name => fromNullable({
+    red: '#ff4444',
+    blue: '#3b5998',
+    yellow: '#fff68f'
+
+}[name]);
+
+
+console.log('find ------------ ', findColorFromNullable('red'))
